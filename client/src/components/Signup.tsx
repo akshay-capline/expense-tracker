@@ -26,7 +26,7 @@ const Signup = () => {
   try {
     console.log("formData", formData);
 
-    const response = await axios.post("http://localhost:3000/api/auth/signup", formData );
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login/api/auth/signup`, formData );
 
     const data = response.data;
      

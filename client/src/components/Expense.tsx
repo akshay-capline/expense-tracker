@@ -44,7 +44,7 @@ const Expense = () => {
 
       if (editId) {
         const res = await axios.put(
-          `http://localhost:3000/api/expense/${editId}`,
+          `${import.meta.env.VITE_API_URL}/api/expense/${editId}`,
           inputData,
         );
 
@@ -52,7 +52,7 @@ const Expense = () => {
         setExpenses((prev) => prev.map((e) => (e.id === data.id ? data : e)));
       } else {
         const res = await axios.post(
-          "http://localhost:3000/api/expense/add",
+          `${import.meta.env.VITE_API_URL}/api/expense/add`,
           inputData,
         );
 
@@ -76,7 +76,7 @@ const Expense = () => {
       const userId = localStorage.getItem(USER_ID);
 
       const res = await axios.get(
-        `http://localhost:3000/api/expense/${userId}`,
+        `${import.meta.env.VITE_API_URL}/api/expense/${userId}`,
       );
       const data = res.data.data;
       console.log("data", data);
@@ -94,7 +94,7 @@ const Expense = () => {
     try {
       const userId = localStorage.getItem(USER_ID);
       await axios.delete(
-        `http://localhost:3000/api/expense/${id}?userId=${userId}`,
+        `${import.meta.env.VITE_API_URL}/api/expense/${id}?userId=${userId}`,
       );
       fetchExpenses();
     } catch (err) {
