@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { errorResponse, successResponse } from "../utils/apiResponse";
+import { errorResponse, successResponse } from "../utils/apiResponse.js";
 import {
   createUserRepo,
   getuserByEmailRepo,
-} from "../respositories/auth.respository";
+} from "../respositories/auth.respository.js";
 import bcrypt from "bcrypt";
 
 export const createUser = async (req: Request, res: Response) => {

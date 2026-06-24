@@ -1,10 +1,10 @@
 import express from 'express';
-import { PORT } from './config/env';
-import connectDB from './db';
+import { PORT } from './config/env.js';
+import connectDB from './db.js';
 import cors from "cors";
 
-import authRoutes from "./routes/auth.routes";
-import expenseRoutes from "./routes/expense.routes";
+import authRoutes from "./routes/auth.routes.js";
+import expenseRoutes from "./routes/expense.routes.js";
 
 const app = express();
 

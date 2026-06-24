@@ -1,5 +1,5 @@
-import { addExpenseRepo, deleteExpenseRepo, getAllExpensesRepo, updateExpenseRepo } from "../respositories/expense.repository";
-import { errorResponse, successResponse } from "../utils/apiResponse";
+import { addExpenseRepo, deleteExpenseRepo, getAllExpensesRepo, updateExpenseRepo } from "../respositories/expense.repository.js";
+import { errorResponse, successResponse } from "../utils/apiResponse.js";
 import type { Request, Response } from "express";
 
 
