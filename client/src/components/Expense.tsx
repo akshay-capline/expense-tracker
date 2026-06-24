@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FaPen, FaTrash } from "react-icons/fa";
 import { USER_ID } from "../config/localStorageKeys";
 import Navbar from "./Navbar";
+import { API_URL } from "../config/api";
 
 type Category = "food" | "travel" | "health" | "other";
 
@@ -44,7 +45,7 @@ const Expense = () => {
 
       if (editId) {
         const res = await axios.put(
-          `${import.meta.env.VITE_API_URL}/api/expense/${editId}`,
+          `${API_URL}/api/expense/${editId}`,
           inputData,
         );
 
@@ -52,7 +53,7 @@ const Expense = () => {
         setExpenses((prev) => prev.map((e) => (e.id === data.id ? data : e)));
       } else {
         const res = await axios.post(
-          `${import.meta.env.VITE_API_URL}/api/expense/add`,
+          `${API_URL}/api/expense/add`,
           inputData,
         );
 
@@ -76,7 +77,7 @@ const Expense = () => {
       const userId = localStorage.getItem(USER_ID);
 
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/expense/${userId}`,
+        `${API_URL}/api/expense/${userId}`,
       );
       const data = res.data.data;
       console.log("data", data);
@@ -94,7 +95,7 @@ const Expense = () => {
     try {
       const userId = localStorage.getItem(USER_ID);
       await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/expense/${id}?userId=${userId}`,
+        `${API_URL}/api/expense/${id}?userId=${userId}`,
       );
       fetchExpenses();
     } catch (err) {

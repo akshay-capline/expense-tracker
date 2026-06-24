@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { USER_ID } from "../config/localStorageKeys";
+import { API_URL } from "../config/api";
 
 interface FormData {
     name : string, 
@@ -26,7 +27,7 @@ const Signup = () => {
   try {
     console.log("formData", formData);
 
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login/api/auth/signup`, formData );
+    const response = await axios.post(`${API_URL}/api/auth/login/api/auth/signup`, formData );
 
     const data = response.data;
      
@@ -46,12 +47,13 @@ const Signup = () => {
 };
 
     
-    return  (<div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    return  (<div className="w-dvw h-dvh flex justify-center items-center ">
+    <div className="flex bg-gray-100  max-w-lg max-h-125 w-[95%] rounded-2xl shadow-md  sm:w-full  h-full flex-col justify-center px-6 py-12 lg:px-8 ">
   <div className="sm:mx-auto sm:w-full sm:max-w-sm">
     <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight ">Sign Up</h2>
   </div>
 
-  <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+  <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm mb-10">
     <form onSubmit={handleSubmit} className="space-y-6 text-black">
 
         <div>
@@ -89,7 +91,8 @@ const Signup = () => {
     </form>
 
   </div>
-</div>)
+</div>  
+    </div>)
 }
 
 export default Signup;
