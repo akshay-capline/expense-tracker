@@ -1,13 +1,17 @@
 import { Pool } from "pg";
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from "./config/env";
+import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_URL, DB_USER } from "./config/env";
 
+
+// export const pool = new Pool({
+//   user: DB_USER,
+//   host: DB_HOST,
+//   database: DB_NAME,
+//   password: DB_PASSWORD,
+//   port: DB_PORT ? Number(DB_PORT) : 5432,
+// });
 
 export const pool = new Pool({
-  user: DB_USER,
-  host: DB_HOST,
-  database: DB_NAME,
-  password: DB_PASSWORD,
-  port: DB_PORT ? Number(DB_PORT) : 5432,
+  connectionString : DB_URL
 });
 
 
