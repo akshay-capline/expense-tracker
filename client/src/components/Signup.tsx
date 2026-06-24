@@ -27,7 +27,9 @@ const Signup = () => {
   try {
     console.log("formData", formData);
 
-    const response = await axios.post(`${API_URL}/api/auth/login/api/auth/signup`, formData );
+    const response = await axios.post(`${API_URL}/api/auth/signup`, formData );
+
+    console.log("Response", response);
 
     const data = response.data;
      
