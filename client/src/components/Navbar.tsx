@@ -11,9 +11,11 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import { USER_ID } from "../config/localStorageKeys";
+import ColorModeSelect from "./mui/ColorModeSelect";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const userId = localStorage.getItem(USER_ID);
 
   const logout = () => {
     localStorage.removeItem(USER_ID);
@@ -54,14 +56,18 @@ const Navbar = () => {
             </Typography>
           </Box>
 
-          <Button
+         { userId && <Button
             variant="outlined"
             color="error"
             startIcon={<LogoutRoundedIcon />}
+            sx={{
+              marginRight : "10px"
+            }}
             onClick={logout}
           >
             Logout
-          </Button>
+          </Button>}
+          <ColorModeSelect  />
         </Toolbar>
       </Container>
     </AppBar>

@@ -4,7 +4,8 @@ import MuiCard from "@mui/material/Card";
 import Container from "@mui/material/Container";
 
 export const ExpenseContainer = styled(Stack)(({ theme }) => ({
-  minHeight: "calc((1 - var(--template-frame-height, 0)) * 100dvh)",
+  height: "calc(100dvh - 68px)",
+  minHeight : "100%",
   padding: theme.spacing(3),
   position: "relative",
 

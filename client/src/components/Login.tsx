@@ -34,7 +34,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 const LoginContainer = styled(Stack)(({ theme }) => ({
-  height: "calc((1 - var(--template-frame-height, 0)) * 100dvh)",
+  height: "calc(100dvh - 68px)",
   minHeight: "100%",
   padding: theme.spacing(2),
   [theme.breakpoints.up("sm")]: {
@@ -61,7 +61,7 @@ interface FormData {
   password: string ;
 }
 
-export default function SignUp() {
+export default function Login() {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);

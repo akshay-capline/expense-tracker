@@ -121,7 +121,6 @@ const ExpensePage = () => {
   };
   return (
     <>
-      <Navbar/>
       <ExpenseContainer>
         <ExpenseContent>
           <Stack spacing={4}>

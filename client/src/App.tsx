@@ -7,6 +7,7 @@ import { USER_ID } from './config/localStorageKeys'
 import ExpensePage from './components/expense/ExpensePage'
 import { CssBaseline } from '@mui/material'
 import ColorModeSelect from './components/mui/ColorModeSelect'
+import Navbar from './components/Navbar'
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
   return (
     <>
       <CssBaseline enableColorScheme />
-      <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem", zIndex : 10 }} />
+      <Navbar/>
        <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />

@@ -76,7 +76,11 @@ const ExpenseCard = ({
         >
           <CardContent>
             <Stack spacing={2}>
-              {/* Header */}
+              <Stack sx={{
+                flexDirection : "row", 
+                justifyContent: "space-between"
+              }}>
+                {/* Header */}
               <Box
                 sx={{
                     display : "flex", 
@@ -85,9 +89,10 @@ const ExpenseCard = ({
                 }}
               >
                 <Typography
-                  variant="h6"
+                  variant="h4"
                   sx={{
-                    fontWeight : 600
+                    fontWeight : 600, 
+                    marginRight : "5px"
                   }}
                 >
                   {expense.name}
@@ -102,6 +107,29 @@ const ExpenseCard = ({
                   }}
                 />
               </Box>
+
+               {/* Actions */}
+              <Stack
+                sx={{
+                    gap : 1, 
+                    flexDirection : "row"
+                }}
+              >
+                <IconButton
+                  color="primary"
+                  onClick={() => onEdit(expense)}
+                >
+                  <EditRoundedIcon />
+                </IconButton>
+
+                <IconButton
+                  color="error"
+                  onClick={() => onDelete(expense.id)}
+                >
+                  <DeleteRoundedIcon />
+                </IconButton>
+              </Stack>
+              </Stack>
 
               <Divider />
 
@@ -140,31 +168,6 @@ const ExpenseCard = ({
                   )}
                 </Typography>
               </Box>
-
-              <Divider />
-
-              {/* Actions */}
-              <Stack
-                sx={{
-                    direction :"row", 
-                    justifyContent : "flex-end",
-                    wordSpacing : 1
-                }}
-              >
-                <IconButton
-                  color="primary"
-                  onClick={() => onEdit(expense)}
-                >
-                  <EditRoundedIcon />
-                </IconButton>
-
-                <IconButton
-                  color="error"
-                  onClick={() => onDelete(expense.id)}
-                >
-                  <DeleteRoundedIcon />
-                </IconButton>
-              </Stack>
             </Stack>
           </CardContent>
         </Card>
