@@ -13,6 +13,7 @@ import { USER_ID } from "../config/localStorageKeys";
 import { API_URL } from "../config/api";
 import axios from "axios";
 import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -57,9 +58,9 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }));
 
 interface FormData {
-  name: string ;
-  email: string ;
-  password: string ;
+  name: string;
+  email: string;
+  password: string;
 }
 
 export default function SignUp() {
@@ -70,16 +71,15 @@ export default function SignUp() {
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState("");
 
-  const [ formData, setFormData ] = React.useState<FormData>({
-    name : "", 
-    email : "", 
-    password :  ""
+  const [formData, setFormData] = React.useState<FormData>({
+    name: "",
+    email: "",
+    password: "",
   });
 
   const navigate = useNavigate();
 
   const validateInputs = () => {
-
     let isValid = true;
 
     if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
@@ -119,9 +119,7 @@ export default function SignUp() {
       return;
     }
 
-
     try {
-
       console.log("form data", formData);
 
       const response = await axios.post(`${API_URL}/api/auth/signup`, formData);
@@ -133,7 +131,6 @@ export default function SignUp() {
       console.log("User created:", resData.data);
       localStorage.setItem(USER_ID, resData.data.user_id);
       navigate("/expense");
-
     } catch (error) {
       console.error("Signup failed:", error);
     }
@@ -143,10 +140,12 @@ export default function SignUp() {
     <>
       {/* <CssBaseline enableColorScheme />
       <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem" }} /> */}
-      <SignUpContainer sx={{
-        direction : "column",
-        justifyContent : "space-between"
-      }}>
+      <SignUpContainer
+        sx={{
+          direction: "column",
+          justifyContent: "space-between",
+        }}
+      >
         <Card variant="outlined">
           <Typography
             component="h1"
@@ -172,7 +171,9 @@ export default function SignUp() {
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? "error" : "primary"}
-                onChange={(e) => setFormData((prev) => ({...prev, name : e.target.value}))}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, name: e.target.value }))
+                }
               />
             </FormControl>
             <FormControl>
@@ -188,7 +189,9 @@ export default function SignUp() {
                 error={emailError}
                 helperText={emailErrorMessage}
                 color={passwordError ? "error" : "primary"}
-                onChange={(e) => setFormData((prev) => ({...prev, email : e.target.value}))}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, email: e.target.value }))
+                }
               />
             </FormControl>
             <FormControl>
@@ -204,7 +207,9 @@ export default function SignUp() {
                 variant="outlined"
                 error={passwordError}
                 helperText={passwordErrorMessage}
-                onChange={(e) => setFormData((prev) => ({...prev, password : e.target.value}))}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, password: e.target.value }))
+                }
                 color={passwordError ? "error" : "primary"}
               />
             </FormControl>
@@ -216,12 +221,13 @@ export default function SignUp() {
             >
               Sign up
             </Button>
-            <Typography sx={{ textAlign: 'center' }}>
-              Already have an account?{' '}
+            <Typography sx={{ textAlign: "center" }}>
+              Already have an account?{" "}
               <Link
-                href="/login"
+                component={RouterLink}
+                to="/login"
                 variant="body2"
-                sx={{ alignSelf: 'center' }}
+                sx={{ alignSelf: "center" }}
               >
                 Sign in
               </Link>

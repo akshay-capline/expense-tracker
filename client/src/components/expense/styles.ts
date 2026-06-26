@@ -29,7 +29,7 @@ export const ExpenseContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export const ExpenseContent = styled(Container)(({ theme }) => ({
+export const ExpenseContent = styled(Container)(() => ({
   width: "100%",
   maxWidth: "1200px",
   margin: "0 auto",

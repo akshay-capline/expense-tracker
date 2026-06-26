@@ -20,7 +20,6 @@ import {
 import { type Expense, type ExpenseFormData } from "./ExpensTypes";
 import { USER_ID } from "../../config/localStorageKeys";
 import { API_URL } from "../../config/api";
-import Navbar from "../Navbar";
 import { useExpense } from "../../context/ExpenseContext";
 
 const ExpensePage = () => {

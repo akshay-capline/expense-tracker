@@ -6,7 +6,6 @@ import { useEffect } from 'react'
 import { USER_ID } from './config/localStorageKeys'
 import ExpensePage from './components/expense/ExpensePage'
 import { CssBaseline } from '@mui/material'
-import ColorModeSelect from './components/mui/ColorModeSelect'
 import Navbar from './components/Navbar'
 
 function App() {

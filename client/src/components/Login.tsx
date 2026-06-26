@@ -13,6 +13,7 @@ import { USER_ID } from "../config/localStorageKeys";
 import { API_URL } from "../config/api";
 import axios from "axios";
 import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -191,9 +192,10 @@ export default function Login() {
             <Typography sx={{ textAlign: 'center' }}>
               Don't have an account?{' '}
               <Link
-                href="/signup"
+                component={RouterLink}
+                to="/signup"
                 variant="body2"
-                sx={{ alignSelf: 'center' }}
+                sx={{ alignSelf: "center" }}
               >
                 Signup
               </Link>
