@@ -1,0 +1,20 @@
+export type Category =
+  | "food"
+  | "travel"
+  | "health"
+  | "other";
+
+export interface Expense {
+  id: number;
+  name: string;
+  amount: number;
+  category: Category;
+  date: string;
+}
+
+export interface ExpenseFormData {
+  name: string;
+  amount: number;
+  category: Category;
+  date: string;
+}
