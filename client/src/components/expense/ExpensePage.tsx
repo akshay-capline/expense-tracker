@@ -18,19 +18,21 @@ import {
 } from "./styles";
 
 import { type Expense, type ExpenseFormData } from "./ExpensTypes";
-import { USER_ID } from "../../../config/localStorageKeys";
-import { API_URL } from "../../../config/api";
-import Navbar from "../../Navbar";
+import { USER_ID } from "../../config/localStorageKeys";
+import { API_URL } from "../../config/api";
+import Navbar from "../Navbar";
+import { useExpense } from "../../context/ExpenseContext";
 
 const ExpensePage = () => {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  // const [expenses, setExpenses] = useState<Expense[]>([]);
+
+  const { expenses, setExpenses } = useExpense();
 
   const [editId, setEditId] = useState<number | null>(null);
-
   const [formData, setFormData] = useState<ExpenseFormData>({
     name: "",
     amount: 0,

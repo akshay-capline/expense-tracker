@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
@@ -9,10 +8,9 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
-import ColorModeSelect from "./theme/ColorModeSelect";
 import { useNavigate } from "react-router-dom";
-import { USER_ID } from "../../config/localStorageKeys";
-import { API_URL } from "../../config/api";
+import { USER_ID } from "../config/localStorageKeys";
+import { API_URL } from "../config/api";
 import axios from "axios";
 import { Link } from "@mui/material";
 

@@ -1,12 +1,12 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
-import Signup from './components/mui/Signup'
-import Login from './components/mui/Login'
+import Signup from './components/Signup'
+import Login from './components/Login'
 import { useEffect } from 'react'
 import { USER_ID } from './config/localStorageKeys'
-import ExpensePage from './components/mui/expense/ExpensePage'
+import ExpensePage from './components/expense/ExpensePage'
 import { CssBaseline } from '@mui/material'
-import ColorModeSelect from './components/mui/theme/ColorModeSelect'
+import ColorModeSelect from './components/mui/ColorModeSelect'
 
 function App() {
 
