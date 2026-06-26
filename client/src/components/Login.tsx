@@ -9,11 +9,14 @@ import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import { USER_ID } from "../config/localStorageKeys";
-import { API_URL } from "../config/api";
-import axios from "axios";
+// import { USER_ID } from "../config/localStorageKeys";
+// import { API_URL } from "../config/api";
+// import axios from "axios";
 import { Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "../redux/saga/authSaga";
+import type { RootState } from "../redux/Store";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -73,7 +76,8 @@ export default function Login() {
   })
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const userId = useSelector((state : RootState) => state.auth.user_id);
 
 
   const validateInputs = () => {
@@ -110,23 +114,26 @@ export default function Login() {
 
 
     try {
-
       
     console.log("form data", formData);
 
-    const response = await axios.post(`${API_URL}/api/auth/login`, formData );
+    // const response = await axios.post(`${API_URL}/api/auth/login`, formData );
 
-    console.log("User created:", response.data.data);
+    // console.log("User created:", response.data.data);
 
-    localStorage.setItem(USER_ID, response.data.data.user_id);
-
-
-    navigate("/expense");
+    // localStorage.setItem(USER_ID, response.data.data.user_id);
+    
+    dispatch(loginAction(formData));
+    
 
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
+
+  React.useEffect(() => {
+    if(userId)  navigate("/expense");
+  }, [userId])
 
   return (
     <>
