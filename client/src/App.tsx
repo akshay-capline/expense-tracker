@@ -14,14 +14,14 @@ function App() {
   const location = useLocation();
 
 
-  // useEffect(() => {
-  //   // if(localStorage.getItem(USER_ID)) navigate("/expense");
-  //   // else if (location.pathname === "/") {
-  //   //   navigate("/signup");
-  //   // }
-  //   // else navigate("/signup");
+  useEffect(() => {
+    if(localStorage.getItem(USER_ID)) navigate("/expense");
+    else {
+      if (location.pathname === "/") navigate("/signup");
+      else if (location.pathname === "/expense") navigate("/signup");
+    }
 
-  // }, [navigate, location])
+  }, [navigate, location])
 
   
   return (

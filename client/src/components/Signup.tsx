@@ -57,9 +57,9 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }));
 
 interface FormData {
-  name: FormDataEntryValue ;
-  email: FormDataEntryValue ;
-  password: FormDataEntryValue ;
+  name: string ;
+  email: string ;
+  password: string ;
 }
 
 export default function SignUp() {
@@ -70,16 +70,19 @@ export default function SignUp() {
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState("");
 
+  const [ formData, setFormData ] = React.useState<FormData>({
+    name : "", 
+    email : "", 
+    password :  ""
+  });
+
   const navigate = useNavigate();
 
   const validateInputs = () => {
-    const email = document.getElementById("email") as HTMLInputElement;
-    const password = document.getElementById("password") as HTMLInputElement;
-    const name = document.getElementById("name") as HTMLInputElement;
 
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
       setEmailError(true);
       setEmailErrorMessage("Please enter a valid email address.");
       isValid = false;
@@ -88,7 +91,7 @@ export default function SignUp() {
       setEmailErrorMessage("");
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!formData.password || formData.password.length < 6) {
       setPasswordError(true);
       setPasswordErrorMessage("Password must be at least 6 characters long.");
       isValid = false;
@@ -97,7 +100,7 @@ export default function SignUp() {
       setPasswordErrorMessage("");
     }
 
-    if (!name.value || name.value.length < 1) {
+    if (!formData.name || formData.name.length < 1) {
       setNameError(true);
       setNameErrorMessage("Name is required.");
       isValid = false;
@@ -109,7 +112,7 @@ export default function SignUp() {
     return isValid;
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (nameError || emailError || passwordError) {
@@ -119,22 +122,7 @@ export default function SignUp() {
 
     try {
 
-      
-    const data = new FormData(event.currentTarget);
-
-    console.log({
-      name: data.get("name"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-
-
-      const formData: FormData = {
-        name: data.get("name") || "",
-        email: data.get("email") || "",
-        password: data.get("password") || "",
-      };
+      console.log("form data", formData);
 
       const response = await axios.post(`${API_URL}/api/auth/signup`, formData);
 
@@ -184,6 +172,7 @@ export default function SignUp() {
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? "error" : "primary"}
+                onChange={(e) => setFormData((prev) => ({...prev, name : e.target.value}))}
               />
             </FormControl>
             <FormControl>
@@ -199,6 +188,7 @@ export default function SignUp() {
                 error={emailError}
                 helperText={emailErrorMessage}
                 color={passwordError ? "error" : "primary"}
+                onChange={(e) => setFormData((prev) => ({...prev, email : e.target.value}))}
               />
             </FormControl>
             <FormControl>
@@ -214,6 +204,7 @@ export default function SignUp() {
                 variant="outlined"
                 error={passwordError}
                 helperText={passwordErrorMessage}
+                onChange={(e) => setFormData((prev) => ({...prev, password : e.target.value}))}
                 color={passwordError ? "error" : "primary"}
               />
             </FormControl>

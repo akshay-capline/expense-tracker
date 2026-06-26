@@ -57,8 +57,8 @@ const LoginContainer = styled(Stack)(({ theme }) => ({
 }));
 
 interface FormData {
-  email: FormDataEntryValue ;
-  password: FormDataEntryValue ;
+  email: string ;
+  password: string ;
 }
 
 export default function SignUp() {
@@ -66,16 +66,20 @@ export default function SignUp() {
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
+  const [formData, setFormData] = React.useState<FormData>({
+    email : "", 
+    password  : ""
+  })
 
   const navigate = useNavigate();
 
+
+
   const validateInputs = () => {
-    const email = document.getElementById("email") as HTMLInputElement;
-    const password = document.getElementById("password") as HTMLInputElement;
 
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    if (!formData.email  || !/\S+@\S+\.\S+/.test(formData.email)) {
       setEmailError(true);
       setEmailErrorMessage("Please enter a valid email address.");
       isValid = false;
@@ -84,7 +88,7 @@ export default function SignUp() {
       setEmailErrorMessage("");
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!formData.password  || formData.password.length < 6) {
       setPasswordError(true);
       setPasswordErrorMessage("Password must be at least 6 characters long.");
       isValid = false;
@@ -107,21 +111,9 @@ export default function SignUp() {
     try {
 
       
-    const data = new FormData(event.currentTarget);
+    console.log("form data", formData);
 
-    console.log({
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-
-
-      const formData: FormData = {
-        email: data.get("email") || "",
-        password: data.get("password") || "",
-      };
-
-       const response = await axios.post(`${API_URL}/api/auth/login`, formData );
+    const response = await axios.post(`${API_URL}/api/auth/login`, formData );
 
     console.log("User created:", response.data.data);
 
@@ -167,6 +159,7 @@ export default function SignUp() {
                 variant="outlined"
                 error={emailError}
                 helperText={emailErrorMessage}
+                onChange={(e) => setFormData((prev) => ({...prev, email : e.target.value}))}
                 color={passwordError ? "error" : "primary"}
               />
             </FormControl>
@@ -183,6 +176,7 @@ export default function SignUp() {
                 variant="outlined"
                 error={passwordError}
                 helperText={passwordErrorMessage}
+                onChange={(e) => setFormData((prev) => ({...prev, password : e.target.value}))}
                 color={passwordError ? "error" : "primary"}
               />
             </FormControl>
