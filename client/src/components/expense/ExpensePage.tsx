@@ -42,6 +42,10 @@ const ExpensePage = () => {
   const fetchExpenses = async () => {
     try {
       const userId = localStorage.getItem(USER_ID);
+      if(!userId) {
+        setExpenses([]);
+        return;
+      }
 
       const res = await axios.get(`${API_URL}/api/expense/${userId}`);
 

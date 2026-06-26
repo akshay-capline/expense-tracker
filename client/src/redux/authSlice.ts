@@ -21,13 +21,12 @@ export const authSlice = createSlice({
   reducers: {
     setUserdetails:  ( state, action: PayloadAction<AuthState>) => {
         const { name, email, user_id} = action.payload;
-        if(name) state.name = name;
-        if(email) state.email = email;
-        if(user_id) state.user_id = user_id;
+        state.name = name;
+        state.email = email;
+        state.user_id = user_id;
     }
   },
 })
-
 
 
 export const { setUserdetails } = authSlice.actions

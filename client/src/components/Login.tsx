@@ -17,6 +17,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../redux/saga/authSaga";
 import type { RootState } from "../redux/Store";
+import { USER_ID } from "../config/localStorageKeys";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -131,9 +132,14 @@ export default function Login() {
     }
   };
 
-  React.useEffect(() => {
-    if(userId)  navigate("/expense");
-  }, [userId])
+React.useEffect(() => {
+
+    console.log("Redux login userId:", userId);
+
+  if (userId) {
+    navigate("/expense");
+  }
+}, [userId, navigate]);
 
   return (
     <>

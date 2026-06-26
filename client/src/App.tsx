@@ -8,20 +8,21 @@ import ExpensePage from './components/expense/ExpensePage'
 import { CssBaseline } from '@mui/material'
 import Navbar from './components/Navbar'
 
+
 function App() {
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
+  // useEffect(() => {
 
-  useEffect(() => {
-    if(localStorage.getItem(USER_ID)) navigate("/expense");
-    else {
-      if (location.pathname === "/") navigate("/signup");
-      else if (location.pathname === "/expense") navigate("/signup");
-    }
+  //   console.log("user id", localStorage.getItem(USER_ID))
+  //   if(localStorage.getItem(USER_ID)) navigate("/expense");
+  //   else {
+  //     if (location.pathname === "/" || location.pathname === "/expense") navigate("/signup");
+  //   }
 
-  }, [navigate, location])
+  // }, [])
 
   
   return (

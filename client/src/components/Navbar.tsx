@@ -12,13 +12,21 @@ import {
 import { useNavigate } from "react-router-dom";
 import { USER_ID } from "../config/localStorageKeys";
 import ColorModeSelect from "./mui/ColorModeSelect";
+import { setUserdetails } from "../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem(USER_ID);
+  const dispatch = useDispatch();
 
   const logout = () => {
     localStorage.removeItem(USER_ID);
+    dispatch(setUserdetails({
+      name : "", 
+      email : "", 
+      user_id : ""
+    }))  
     navigate("/login", { replace: true });
   };
 

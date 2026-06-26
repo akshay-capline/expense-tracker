@@ -14,6 +14,9 @@ import { API_URL } from "../config/api";
 import axios from "axios";
 import { Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signupAction } from "../redux/saga/authSaga";
+import type { RootState } from "../redux/Store";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -78,6 +81,8 @@ export default function SignUp() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userId = useSelector((rootstate : RootState) => rootstate.auth.user_id);
 
   const validateInputs = () => {
     let isValid = true;
@@ -122,19 +127,28 @@ export default function SignUp() {
     try {
       console.log("form data", formData);
 
-      const response = await axios.post(`${API_URL}/api/auth/signup`, formData);
+      // const response = await axios.post(`${API_URL}/api/auth/signup`, formData);
 
-      console.log("Response", response);
 
-      const resData = response.data;
+      dispatch(signupAction(formData));
 
-      console.log("User created:", resData.data);
-      localStorage.setItem(USER_ID, resData.data.user_id);
-      navigate("/expense");
+      // console.log("Response", response);
+
+      // const resData = response.data;
+
+      // console.log("User created:", resData.data);
+      // localStorage.setItem(USER_ID, resData.data.user_id);
+      // navigate("/expense");
     } catch (error) {
       console.error("Signup failed:", error);
     }
   };
+  
+React.useEffect(() => {
+  if (userId) {
+    navigate("/expense");
+  }
+}, [userId, navigate]);
 
   return (
     <>
