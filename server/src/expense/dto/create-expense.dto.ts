@@ -22,5 +22,5 @@ export class CreateExpenseDto {
   date!: string;
 
   @IsInt()
-  user_id!: string;
+  user_id!: number;
 }
