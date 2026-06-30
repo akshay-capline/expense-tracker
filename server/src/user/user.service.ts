@@ -12,6 +12,10 @@ export class UserService {
 
   constructor(private prismaService : PrismaService, private jwtService : JwtService){};
 
+  private payload(id : number, email : string) {
+    return { id, email };
+  }
+
   async create(createUserDto: CreateUserDto) {
     const user = await this.prismaService.user.findUnique({
       where : {
@@ -22,16 +26,27 @@ export class UserService {
     if(user) throw new ConflictException("user already present");
 
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-
-    return this.prismaService.user.create({
+    
+    
+    const newUser = await this.prismaService.user.create({
       data : {
         name : createUserDto.name, 
         email : createUserDto.email, 
         password : hashedPassword, 
-        access_token : '', 
         refresh_token : ''
       }
-    })
+    });
+
+    
+    const accessToken = await this.jwtService.signAsync(this.payload(newUser.id, createUserDto.email));
+    
+     return {
+      access_token: accessToken,
+      user: {
+        name: createUserDto.name,
+        email: createUserDto.email,
+      },
+    }
   }
 
   async login(loginUserDto : LoginUserDto){
@@ -47,12 +62,12 @@ export class UserService {
 
     if(!isValidPw) throw new UnauthorizedException('invalid password')
 
-    const payload = {
-      id: user.id,
-      email: user.email,
-    };
+    // const payload = {
+    //   id: user.id,
+    //   email: user.email,
+    // };
 
-    const accessToken = await this.jwtService.signAsync(payload);
+    const accessToken = await this.jwtService.signAsync(this.payload(user.id, user.email));
 
     return {
       access_token: accessToken,
