@@ -18,6 +18,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           expiresIn: '1d',
         },
       }),
-    }),]
+    }),], 
+  exports: [UserService]
 })
 export class UserModule {}

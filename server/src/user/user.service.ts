@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import bcrypt from "bcrypt";
 import { LoginUserDto } from './dto/login-user.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
+import { Role } from '../../generated/prisma/enums.js';
 
 
 @Injectable()
@@ -84,6 +85,17 @@ export class UserService {
       },
     };
     
+  }
+
+  async setAllUsersToMember() {
+
+    const result = await this.prismaService.user.updateMany({
+      data: {
+        role: Role.member,
+      },
+    });
+
+    return result.count;
   }
 
   findAll() {

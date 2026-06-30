@@ -9,7 +9,6 @@ export class ExpenseController {
 
   @Post("add")
   create(@Body() createExpenseDto: CreateExpenseDto) {
-    console.log("create expense");
     return this.expenseService.create(createExpenseDto);
   }
 
