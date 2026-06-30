@@ -37,7 +37,7 @@ export class UserService {
       }
     });
 
-    
+
     const accessToken = await this.jwtService.signAsync(this.payload(newUser.id, createUserDto.email));
     
      return {
@@ -45,22 +45,28 @@ export class UserService {
       user: {
         name: createUserDto.name,
         email: createUserDto.email,
+        user_id: newUser.id
       },
     }
   }
 
   async login(loginUserDto : LoginUserDto){
+
     const user = await this.prismaService.user.findUnique({
       where : {
         email : loginUserDto.email
       }
     })
 
+    console.log("dto", loginUserDto);
     if(!user) throw new NotFoundException('user not found');
 
-    const isValidPw = await bcrypt.compare(user.password, loginUserDto.password);
+    const isValidPw = await bcrypt.compare(loginUserDto.password, user.password);
 
-    if(!isValidPw) throw new UnauthorizedException('invalid password')
+    if(!isValidPw){
+      console.log("password not valid");
+       throw new UnauthorizedException('invalid password')
+    }
 
     // const payload = {
     //   id: user.id,
@@ -74,6 +80,7 @@ export class UserService {
       user: {
         name: user.name,
         email: user.email,
+        user_id : user.id
       },
     };
     

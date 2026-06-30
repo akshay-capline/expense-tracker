@@ -24,16 +24,16 @@ interface SignupPayload {
 export const loginAction = createAction<LoginPayload>("LOGIN");
 
 export function loginApi(data: LoginPayload) {
-  return axios.post(`${API_URL}/api/auth/login`, data);
+  return axios.post(`${API_URL}/user/login`, data);
 }
 
 export function* login(action: { payload: LoginPayload }): SagaIterator {
   try {
     const res = yield call(loginApi, action.payload);
 
-    localStorage.setItem(USER_ID, res.data.data.user_id);
-    console.log("res.data.data.user_id", res.data.data.user_id);
-    yield put(setUserdetails(res.data.data));
+    localStorage.setItem(USER_ID, res.data.user.user_id);
+    console.log("res.data.data.user_id", res.data.user.user_id);
+    yield put(setUserdetails(res.data.user));
   } catch (err) {
     console.log("error occrued while login", err);
   }
@@ -46,17 +46,17 @@ export function* login(action: { payload: LoginPayload }): SagaIterator {
 export const signupAction = createAction<SignupPayload>("SIGNUP");
 
 function signupApi(data: SignupPayload) {
-  return axios.post(`${API_URL}/api/auth/signup`, data);
+  return axios.post(`${API_URL}/user/create`, data);
 }
 
 export function* signup(action: { payload: SignupPayload }): SagaIterator {
   try {
     const res = yield call(signupApi, action.payload);
 
-    const data = res.data.data;
-    console.log("User created:", data);
+    const data = res.data.user;
+    console.log("User created:", res.data);
     
-    localStorage.setItem(USER_ID, data.user_id);
+    localStorage.setItem(USER_ID, data.id);
 
     yield put(setUserdetails(data));
 
