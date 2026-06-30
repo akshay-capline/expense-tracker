@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsDateString, IsNotEmpty, IsInt  } from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty, IsInt, IsDate  } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 
@@ -14,7 +14,7 @@ export class CreateExpenseDto {
   @IsNumber()
   amount!: number;
 
-  @IsDateString()
+  @IsDate()
   @Transform(({ value }) => new Date(value))
   expense_date!: string;
 
