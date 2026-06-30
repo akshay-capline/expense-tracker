@@ -36,7 +36,7 @@ const ExpensePage = () => {
     name: "",
     amount: 0,
     category: "other",
-    date: "",
+    expense_date : "",
   });
 
   const fetchExpenses = async () => {
@@ -47,7 +47,9 @@ const ExpensePage = () => {
         return;
       }
 
-      const res = await axios.get(`${API_URL}/api/expense/${userId}`);
+      const res = await axios.get(`${API_URL}/expense/${userId}`);
+
+      console.log("fetch expenses", res.data.data);
 
       setExpenses(res.data.data);
     } catch (err) {
@@ -67,12 +69,14 @@ const ExpensePage = () => {
 
       const inputData = {
         ...formData,
-        user_id: userId,
+        user_id: parseInt(userId || '0'),
       };
+
+      console.log("input data", inputData);
 
       if (editId) {
         const res = await axios.put(
-          `${API_URL}/api/expense/${editId}`,
+          `${API_URL}/expense/${editId}`,
           inputData,
         );
 
@@ -82,7 +86,7 @@ const ExpensePage = () => {
           ),
         );
       } else {
-        const res = await axios.post(`${API_URL}/api/expense/add`, inputData);
+        const res = await axios.post(`${API_URL}/expense/add`, inputData);
 
         setExpenses((prev) => [...prev, res.data.data]);
       }
@@ -91,20 +95,19 @@ const ExpensePage = () => {
         name: "",
         amount: 0,
         category: "other",
-        date: "",
+        expense_date: "",
       });
 
       setEditId(null);
     } catch (err) {
-      console.log(err);
+      console.log((err as any).response.data);
     }
   };
 
   const handleDelete = async (id: number) => {
     try {
-      const userId = localStorage.getItem(USER_ID);
-
-      await axios.delete(`${API_URL}/api/expense/${id}?userId=${userId}`);
+      // const userId = localStorage.getItem(USER_ID);
+      await axios.delete(`${API_URL}/expense/${id}`);
 
       setExpenses((prev) => prev.filter((expense) => expense.id !== id));
     } catch (err) {
@@ -119,7 +122,7 @@ const ExpensePage = () => {
       name: expense.name,
       amount: expense.amount,
       category: expense.category,
-      date: expense.date.split("T")[0],
+      expense_date : expense.expense_date.split("T")[0],
     });
   };
   return (

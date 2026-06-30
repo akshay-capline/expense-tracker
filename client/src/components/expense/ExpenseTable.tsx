@@ -92,10 +92,10 @@ const ExpenseTable = ({
               </TableCell>
             </TableRow>
           ) : (
-            expenses.map((expense) => (
+            expenses.map((expense, idx) => (
               <TableRow
                 hover
-                key={expense.id}
+                key={idx}
               >
                 <TableCell>
                   <Typography  sx={{
@@ -122,7 +122,7 @@ const ExpenseTable = ({
                 </TableCell>
 
                 <TableCell align="center">
-                  {new Date(expense.date).toLocaleDateString("en-GB")}
+                  {new Date(expense.expense_date).toLocaleDateString("en-GB")}
                 </TableCell>
 
                 <TableCell align="center">

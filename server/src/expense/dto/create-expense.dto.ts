@@ -19,7 +19,7 @@ export class CreateExpenseDto {
   amount!: number;
 
   @IsDateString()
-  date!: string;
+  expense_date!: string;
 
   @IsInt()
   user_id!: number;

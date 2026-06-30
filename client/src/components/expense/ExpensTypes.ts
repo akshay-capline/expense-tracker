@@ -9,12 +9,12 @@ export interface Expense {
   name: string;
   amount: number;
   category: Category;
-  date: string;
+  expense_date: string;
 }
 
 export interface ExpenseFormData {
   name: string;
   amount: number;
   category: Category;
-  date: string;
+  expense_date : string;
 }

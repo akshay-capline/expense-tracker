@@ -96,11 +96,11 @@ const ExpenseForm = ({
                 shrink: true,
               },
             }}
-            value={formData.date}
+            value={formData.expense_date}
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
-                date: e.target.value,
+                expense_date: e.target.value,
               }))
             }
           />

@@ -66,9 +66,9 @@ const ExpenseCard = ({
 
   return (
     <Stack spacing={2}>
-      {expenses.map((expense) => (
+      {expenses.map((expense, idx) => (
         <Card
-          key={expense.id}
+          key={idx}
           variant="outlined"
           sx={{
             borderRadius: 3,
@@ -163,7 +163,7 @@ const ExpenseCard = ({
                 </Typography>
 
                 <Typography>
-                  {new Date(expense.date).toLocaleDateString(
+                  {new Date(expense.expense_date).toLocaleDateString(
                     "en-GB"
                   )}
                 </Typography>

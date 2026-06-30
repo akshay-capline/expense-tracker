@@ -3,42 +3,64 @@ import { CreateExpenseDto } from './dto/create-expense.dto.js';
 import { UpdateExpenseDto } from './dto/update-expense.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 
-
 @Injectable()
 export class ExpenseService {
-
-  constructor(private prismaService : PrismaService){};
+  constructor(private prismaService: PrismaService) {}
 
   async create(createExpenseDto: CreateExpenseDto) {
-    return await this.prismaService.expense.create({
-      data : createExpenseDto
+    const createdData = await this.prismaService.expense.create({
+      data: {
+        ...createExpenseDto,
+        expense_date: new Date(createExpenseDto.expense_date),
+      },
     });
+    return {
+      data : createdData 
+    }
   }
 
-  async findAll(id : number) {
-    return await this.prismaService.expense.findMany({
-      where : { user_id : id }
-    })
+  async findAll(id: number) {
+    const expenses = await this.prismaService.expense.findMany({
+      where: { user_id: id },
+    });
+
+    return {
+      data: expenses.map((expense) => ({
+        ...expense,
+        amount: Number(expense.amount),
+      })),
+    };
   }
 
   async findOne(id: number) {
-    return await this.prismaService.expense.findFirst({
-      where : { id }
-    })
+    return {
+      data : await this.prismaService.expense.findFirst({
+      where: { id },
+      })
+    }
   }
 
   async update(id: number, updateExpenseDto: UpdateExpenseDto) {
-    return await this.prismaService.expense.update({
-      where : { id }, 
-      data : updateExpenseDto
+    const updatedData = await this.prismaService.expense.update({
+      where: { id },
+      data: {
+        ...updateExpenseDto,
+        expense_date: new Date(updateExpenseDto.expense_date || ''),
+      },
     })
+    return {
+      data : updatedData
+    }
   }
 
   async remove(id: number) {
-    return await this.prismaService.expense.delete({
-      where : {
-        id
-      }
-    })
+    const updatedData = await this.prismaService.expense.delete({
+      where: {
+        id,
+      },
+    }); 
+    return {
+      data : updatedData
+    } 
   }
 }
