@@ -9,10 +9,7 @@ export class ExpenseService {
 
   async create(createExpenseDto: CreateExpenseDto) {
     const createdData = await this.prismaService.expense.create({
-      data: {
-        ...createExpenseDto,
-        expense_date: new Date(createExpenseDto.expense_date),
-      },
+      data: createExpenseDto
     });
     return {
       data : createdData 
