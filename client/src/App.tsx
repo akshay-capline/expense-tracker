@@ -7,7 +7,7 @@ import { USER_ID } from './config/localStorageKeys'
 import ExpensePage from './components/expense/ExpensePage'
 import { CssBaseline } from '@mui/material'
 import Navbar from './components/Navbar'
-
+import { io } from "socket.io-client";
 
 function App() {
 
@@ -23,6 +23,17 @@ function App() {
   //   }
 
   // }, [])
+
+
+  useEffect(() => {
+
+    const socket = io(import.meta.env.VITE_API_URL);
+
+    socket.on("message", (m) => {
+      console.log("message recieved", m);
+    })
+    
+  }, [])
 
   
   return (
