@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+
+    container_name: expense-server
+
+    ports:
+      - "3000:3000"
+
+    env_file:
+      - ./server/.env
+
+    restart: unless-stopped
