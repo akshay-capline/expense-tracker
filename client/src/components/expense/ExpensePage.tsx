@@ -47,7 +47,9 @@ const ExpensePage = () => {
         return;
       }
 
-      const res = await axios.get(`${API_URL}/expense/${userId}`);
+      const res = await axios.get(`${API_URL}/expense/${userId}`, {
+        withCredentials : true
+      });
 
       console.log("fetch expenses", res.data.data);
 

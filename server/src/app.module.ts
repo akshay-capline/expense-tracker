@@ -6,12 +6,13 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { UserModule } from './user/user.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { SetUserRoleCommand } from './commands/set-user-role.command.js';
+import { AuthModule } from './auth/auth.module.js';
 
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal : true
-  }), ExpenseModule, PrismaModule, UserModule],
+  }), ExpenseModule, PrismaModule, UserModule, AuthModule],
   controllers: [AppController],
   providers: [AppService, SetUserRoleCommand],
 })

@@ -24,7 +24,9 @@ interface SignupPayload {
 export const loginAction = createAction<LoginPayload>("LOGIN");
 
 export function loginApi(data: LoginPayload) {
-  return axios.post(`${API_URL}/user/login`, data);
+  return axios.post(`${API_URL}/user/login`, data, {
+    withCredentials : true
+  });
 }
 
 export function* login(action: { payload: LoginPayload }): SagaIterator {
@@ -46,7 +48,9 @@ export function* login(action: { payload: LoginPayload }): SagaIterator {
 export const signupAction = createAction<SignupPayload>("SIGNUP");
 
 function signupApi(data: SignupPayload) {
-  return axios.post(`${API_URL}/user/create`, data);
+  return axios.post(`${API_URL}/user/create`, data, {
+    withCredentials : true
+  });
 }
 
 export function* signup(action: { payload: SignupPayload }): SagaIterator {

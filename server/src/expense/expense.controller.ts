@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Put, UseGuards } from '@nestjs/common';
 import { ExpenseService } from './expense.service.js';
 import { CreateExpenseDto } from './dto/create-expense.dto.js';
 import { UpdateExpenseDto } from './dto/update-expense.dto.js';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth/jwt-auth.guard.js';
 
 @Controller('expense')
 export class ExpenseController {
@@ -13,6 +14,7 @@ export class ExpenseController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   findAll(@Param('id', ParseIntPipe) id: number) {
     return this.expenseService.findAll(id);
   }
